@@ -1,12 +1,14 @@
-using Employees.Infrastructure.Exceptions;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
+using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Microsoft.OpenApi.Models;
+using Platforms.Domain.Data;
+using System;
 
-namespace Employees.Api
+namespace Platforms.Api
 {
     public class Startup
     {
@@ -19,10 +21,14 @@ namespace Employees.Api
 
         public void ConfigureServices(IServiceCollection services)
         {
+            services.AddDbContext<AppDbContext>(opt => opt.UseInMemoryDatabase("InMemDb"));
+            services.AddScoped<IPlatformRepository, PlatformRepository>();
+
             services.AddControllers();
+            services.AddAutoMapper(AppDomain.CurrentDomain.GetAssemblies());
             services.AddSwaggerGen(c =>
             {
-                c.SwaggerDoc("v1", new OpenApiInfo { Title = "Employee.Api", Version = "v1" });
+                c.SwaggerDoc("v1", new OpenApiInfo { Title = "Platform.Api", Version = "v1" });
             });
         }
 
@@ -32,7 +38,7 @@ namespace Employees.Api
             {
                 app.UseDeveloperExceptionPage();
                 app.UseSwagger();
-                app.UseSwaggerUI(c => c.SwaggerEndpoint("/swagger/v1/swagger.json", "Employee.Api v1"));
+                app.UseSwaggerUI(c => c.SwaggerEndpoint("/swagger/v1/swagger.json", "Platform.Api v1"));
             }
 
             app.UseHttpsRedirection();
@@ -41,12 +47,13 @@ namespace Employees.Api
 
             app.UseAuthorization();
 
-            app.UseMiddleware<ExceptionMiddleware>();
-
             app.UseEndpoints(endpoints =>
             {
                 endpoints.MapControllers();
             });
+
+            // For testing
+            MockDb.SetUpDb(app);
         }
     }
 }
