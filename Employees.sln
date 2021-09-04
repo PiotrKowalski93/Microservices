@@ -9,9 +9,9 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Employees.Domain", "Employe
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Employees.Infrastructure", "Employees.Infrastructure\Employees.Infrastructure.csproj", "{8D4B6E66-031D-4186-A690-69F0B001CF7B}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Platforms.Api", "Platform.Api\Platforms.Api.csproj", "{B94E5FD9-E499-4E58-87FC-BB747074CF3F}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Platforms.Api", "Platforms.Api\Platforms.Api.csproj", "{B94E5FD9-E499-4E58-87FC-BB747074CF3F}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Platforms.Domain", "Platform.Domain\Platforms.Domain.csproj", "{51B53697-87A7-4AC8-A23B-BAD6C523DDFE}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Platforms.Domain", "Platforms.Domain\Platforms.Domain.csproj", "{51B53697-87A7-4AC8-A23B-BAD6C523DDFE}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
