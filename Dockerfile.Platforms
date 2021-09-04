@@ -10,7 +10,6 @@ WORKDIR /src
 COPY "Platforms.Api" "Platforms.Api"
 COPY "Platforms.Domain" "Platforms.Domain"
 
-
 RUN dotnet restore "Platforms.Api/Platforms.Api.csproj"
 
 RUN dotnet build "Platforms.Api/Platforms.Api.csproj" -c Release -o build
