@@ -9,9 +9,15 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Employees.Domain", "Employe
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Employees.Infrastructure", "Employees.Infrastructure\Employees.Infrastructure.csproj", "{8D4B6E66-031D-4186-A690-69F0B001CF7B}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Platforms.Api", "Platforms.Api\Platforms.Api.csproj", "{B94E5FD9-E499-4E58-87FC-BB747074CF3F}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Platforms.Api", "Platforms.Api\Platforms.Api.csproj", "{B94E5FD9-E499-4E58-87FC-BB747074CF3F}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Platforms.Domain", "Platforms.Domain\Platforms.Domain.csproj", "{51B53697-87A7-4AC8-A23B-BAD6C523DDFE}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Platforms.Domain", "Platforms.Domain\Platforms.Domain.csproj", "{51B53697-87A7-4AC8-A23B-BAD6C523DDFE}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Dockerfiles", "Dockerfiles", "{CBEA1011-045F-4396-BF8A-8672FA145D69}"
+	ProjectSection(SolutionItems) = preProject
+		Dockerfile.Employees = Dockerfile.Employees
+		Dockerfile.Platforms = Dockerfile.Platforms
+	EndProjectSection
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
