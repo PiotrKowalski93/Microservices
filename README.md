@@ -19,4 +19,7 @@ Tools:
 ![image](https://user-images.githubusercontent.com/19981961/131700348-73a41bac-11cf-4699-98e6-21aee35b9305.png)
 
 
+# K8s Architecture
+
+![image](https://user-images.githubusercontent.com/19981961/132133561-64b1dfec-fcc9-4010-9adf-3a50c06623e9.png)
 
