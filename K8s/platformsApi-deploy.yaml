@@ -1,0 +1,24 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: platformsapi-deploy
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: platformsapi
+  template:
+    metadata:
+      labels:
+        app: platformsapi
+    spec:
+      containers:
+      - name: platformsapi
+        image: piotrkowalski93/platformsservice:latest
+        resources:
+          limits:
+            memory: "128Mi"
+            cpu: "500m"
+        ports:
+        - containerPort: 80
+          
