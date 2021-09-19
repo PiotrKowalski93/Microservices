@@ -1,0 +1,19 @@
+FROM mcr.microsoft.com/dotnet/aspnet:5.0 AS base
+WORKDIR /app
+EXPOSE 80
+
+FROM mcr.microsoft.com/dotnet/sdk:5.0 AS build-env
+WORKDIR /src
+
+COPY "Commands.Api" "Commands.Api"
+
+RUN dotnet restore "Commands.Api/Commands.Api.csproj"
+
+RUN dotnet build "Commands.Api/Commands.Api.csproj" -c Release -o build
+
+RUN dotnet publish "Commands.Api/Commands.Api.csproj" -c Release -o publish
+
+FROM base as final
+WORKDIR /app
+COPY --from=build-env /src/publish .
+ENTRYPOINT ["dotnet", "Commands.Api.dll"]

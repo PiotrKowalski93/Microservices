@@ -1,18 +1,3 @@
-# docker images
-# docker ps
-# docker build -t piotrkowalski93/platformsservice:latest -f Dockerfile.Platforms .
-# docker run -p 8080:80 platformsservice:latest
-# docker kill 2866ed6b9182
-
-# kubectl version
-# cd K8s
-# kubectl apply -f .\platformsApi-deploy.yaml
-# kubectl apply -f .\platformsApi-np-srv.yaml
-# kubectl get deployments
-# kubectl get pods
-# kubectl get services
-# kubectl describe pod XXXXXX
-# kubectl describe deployment XXXXX
 FROM mcr.microsoft.com/dotnet/aspnet:5.0 AS base
 WORKDIR /app
 EXPOSE 80
