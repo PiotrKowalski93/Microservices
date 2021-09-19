@@ -26,7 +26,7 @@ namespace Platforms.Api.Http
                     "application/json"
                 );
 
-            var response = await _httpClient.PostAsync("http://localhost:80/api/Platforms/CreatePlatform", httpContent);
+            var response = await _httpClient.PostAsync($"{_config["CommandsApiEndpoint"]}/api/com/platforms/test", httpContent);
         }
     }
 }

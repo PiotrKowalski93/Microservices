@@ -5,6 +5,7 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Microsoft.OpenApi.Models;
+using Platforms.Api.Http;
 using Platforms.Domain.Data;
 using System;
 
@@ -23,6 +24,7 @@ namespace Platforms.Api
         {
             services.AddDbContext<AppDbContext>(opt => opt.UseInMemoryDatabase("InMemDb"));
             services.AddScoped<IPlatformRepository, PlatformRepository>();
+            services.AddHttpClient<ICommandDataClient, HttpCommandDataClient>();
 
             services.AddControllers();
             services.AddAutoMapper(AppDomain.CurrentDomain.GetAssemblies());
@@ -30,6 +32,8 @@ namespace Platforms.Api
             {
                 c.SwaggerDoc("v1", new OpenApiInfo { Title = "Platform.Api", Version = "v1" });
             });
+
+            Console.WriteLine($"CommandApiEndpoint: {Configuration["CommandsApiEndpoint"]}");
         }
 
         public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
