@@ -1,35 +1,35 @@
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: platformsapi-deploy
+  name: comandsapi-deploy
 spec:
   replicas: 1
   selector:
     matchLabels:
-      app: platformsapi
+      app: comandsapi
   template:
     metadata:
       labels:
-        app: platformsapi
+        app: comandsapi
     spec:
       containers:
-      - name: platformsapi
-        image: piotrkowalski93/platformsservice:latest
+      - name: comandsapi
+        image: piotrkowalski93/commandsservice:latest
         resources:
           limits:
             memory: "128Mi"
             cpu: "500m"
         ports:
         - containerPort: 80
---- 
+---
 apiVersion: v1
 kind: Service
 metadata:
-  name: platformsapi-clusterip-srv
+  name: commandsapi-clusterip-srv
 spec:
   type: ClusterIP
   selector:
-    app: platformsapi
+    app: comandsapi
   ports:
   - port: 80
-    targetPort: 80
+    targetPort: 80          
