@@ -24,6 +24,8 @@ namespace Platforms.Api
         {
             services.AddDbContext<AppDbContext>(opt => opt.UseInMemoryDatabase("InMemDb"));
             services.AddScoped<IPlatformRepository, PlatformRepository>();
+
+            // Using HttpClient Factory
             services.AddHttpClient<ICommandDataClient, HttpCommandDataClient>();
 
             services.AddControllers();

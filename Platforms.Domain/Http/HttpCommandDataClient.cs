@@ -26,7 +26,18 @@ namespace Platforms.Api.Http
                     "application/json"
                 );
 
-            var response = await _httpClient.PostAsync($"{_config["CommandsApiEndpoint"]}/api/com/platforms/test", httpContent);
+            var response = await _httpClient.PostAsync($"{_config["CommandsApiEndpoint"]}/test", httpContent);
+
+
+            if(response.IsSuccessStatusCode)
+            {
+                System.Console.WriteLine("------> POST to commandsService was OK");
+            }
+            else
+            {
+                System.Console.WriteLine("------> POST to commandsService was NOT OK");
+            }
+
         }
     }
 }
