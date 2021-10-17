@@ -47,13 +47,22 @@ namespace Platforms.Api.Controllers
         }
 
         [HttpPost]
-        public ActionResult<PlatformReadDto> CreatePlatform([FromBody] PlatformCreateDto platform)
+        public async Task<ActionResult<PlatformReadDto>> CreatePlatform([FromBody] PlatformCreateDto platform)
         {
             var platformToCreate = _mapper.Map<Platform>(platform);
 
             _repository.CreatePlatform(platformToCreate);
 
             var returnDto = _mapper.Map<PlatformReadDto>(platformToCreate);
+
+            try
+            {
+                await _commandDataClient.SendPlatformToCommand(returnDto);
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine($"Could not send request to commandsService: {ex.Message}");
+            }
 
             return CreatedAtAction(nameof(GetPlatformById), new { Id = returnDto.Id }, returnDto);
         }
