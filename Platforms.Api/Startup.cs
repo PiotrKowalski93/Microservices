@@ -13,16 +13,29 @@ namespace Platforms.Api
 {
     public class Startup
     {
-        public Startup(IConfiguration configuration)
+        public IConfiguration Configuration { get; }
+        public IWebHostEnvironment WebHostEnvironment { get; }
+
+        public Startup(IConfiguration configuration, IWebHostEnvironment webHostEnvironment)
         {
             Configuration = configuration;
+            WebHostEnvironment = webHostEnvironment;
         }
-
-        public IConfiguration Configuration { get; }
 
         public void ConfigureServices(IServiceCollection services)
         {
-            services.AddDbContext<AppDbContext>(opt => opt.UseInMemoryDatabase("InMemDb"));
+
+            if (WebHostEnvironment.IsProduction())
+            {
+                Console.WriteLine("Using SqlServer Db");
+                services.AddDbContext<AppDbContext>( opt => opt.UseSqlServer(Configuration.GetConnectionString("MsSqlConnString")));
+            }
+            else
+            {
+                Console.WriteLine("Using InMemDb");
+                services.AddDbContext<AppDbContext>(opt => opt.UseInMemoryDatabase("InMemDb"));
+            }
+
             services.AddScoped<IPlatformRepository, PlatformRepository>();
 
             // Using HttpClient Factory
@@ -58,8 +71,7 @@ namespace Platforms.Api
                 endpoints.MapControllers();
             });
 
-            // For testing
-            MockDb.SetUpDb(app);
+            MockDb.SetUpDb(app, WebHostEnvironment.IsProduction());
         }
     }
 }
