@@ -25,16 +25,16 @@ namespace Platforms.Api
         public void ConfigureServices(IServiceCollection services)
         {
 
-            if (WebHostEnvironment.IsProduction())
-            {
+            //if (WebHostEnvironment.IsProduction())
+            //{
                 Console.WriteLine("Using SqlServer Db");
                 services.AddDbContext<AppDbContext>( opt => opt.UseSqlServer(Configuration.GetConnectionString("MsSqlConnString")));
-            }
-            else
-            {
-                Console.WriteLine("Using InMemDb");
-                services.AddDbContext<AppDbContext>(opt => opt.UseInMemoryDatabase("InMemDb"));
-            }
+            //}
+            //else
+            //{
+            //    Console.WriteLine("Using InMemDb");
+                //services.AddDbContext<AppDbContext>(opt => opt.UseInMemoryDatabase("InMemDb"));
+            //}
 
             services.AddScoped<IPlatformRepository, PlatformRepository>();
 
@@ -71,7 +71,7 @@ namespace Platforms.Api
                 endpoints.MapControllers();
             });
 
-            MockDb.SetUpDb(app, WebHostEnvironment.IsProduction());
+            //MockDb.SetUpDb(app, WebHostEnvironment.IsProduction());
         }
     }
 }
