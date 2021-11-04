@@ -1,3 +1,5 @@
+using Commands.Domain.Data;
+using Microsoft.EntityFrameworkCore;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.Extensions.Configuration;
@@ -19,6 +21,10 @@ namespace Commands.Api
 
         public void ConfigureServices(IServiceCollection services)
         {
+            services.AddScoped<ICommandRepo, CommandRepo>();
+
+            services.AddDbContext<AppDbContext>(opt => opt.UseInMemoryDatabase("InMemDb"));
+
             services.AddControllers();
             services.AddAutoMapper(AppDomain.CurrentDomain.GetAssemblies());
             services.AddSwaggerGen(c =>
