@@ -66,7 +66,7 @@ namespace Commands.Domain.Data
             return _context.Platforms.Any(p => p.Id == platformId);
         }
 
-        public bool SaveChanges()
+        private bool SaveChanges()
         {
             return (_context.SaveChanges() >= 0);
         }

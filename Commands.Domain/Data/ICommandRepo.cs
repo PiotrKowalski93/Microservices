@@ -5,8 +5,6 @@ namespace Commands.Domain.Data
 {
     public interface ICommandRepo
     {
-        bool SaveChanges();
-
         // Platforms
         IEnumerable<Platform> GetAllPlatforms();
         void CreatePlatform(Platform platform);
