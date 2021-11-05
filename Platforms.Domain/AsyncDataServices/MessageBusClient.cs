@@ -44,6 +44,19 @@ namespace Platforms.Domain.AsyncDataServices
             var body = Encoding.UTF8.GetBytes(message);
 
             _channel.BasicPublish(exchange: "trigger", routingKey: "", basicProperties: null, body: body);
+
+            Console.WriteLine($"We have sent {body}");
+        }
+
+        public void Dispose()
+        {
+            Console.WriteLine("MessageBus disposed");
+
+            if(_channel.IsOpen)
+            {
+                _channel.Close();
+                _connection.Close();
+            }
         }
 
         private void RabbitMq_ConnectionShutdown(object sender, ShutdownEventArgs e)
