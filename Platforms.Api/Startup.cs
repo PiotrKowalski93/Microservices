@@ -6,6 +6,7 @@ using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Microsoft.OpenApi.Models;
 using Platforms.Api.Http;
+using Platforms.Domain.AsyncDataServices;
 using Platforms.Domain.Data;
 using System;
 
@@ -37,6 +38,7 @@ namespace Platforms.Api
             }
 
             services.AddScoped<IPlatformRepository, PlatformRepository>();
+            services.AddSingleton<IMessageBusClient, MessageBusClient>();
 
             // Using HttpClient Factory
             services.AddHttpClient<ICommandDataClient, HttpCommandDataClient>();

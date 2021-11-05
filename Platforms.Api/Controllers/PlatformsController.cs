@@ -1,6 +1,7 @@
 ﻿using AutoMapper;
 using Microsoft.AspNetCore.Mvc;
 using Platforms.Api.Http;
+using Platforms.Domain.AsyncDataServices;
 using Platforms.Domain.Data;
 using Platforms.Domain.DTOs;
 using Platforms.Domain.Models;
@@ -15,12 +16,17 @@ namespace Platforms.Api.Controllers
     public class PlatformsController : ControllerBase
     {
         private readonly ICommandDataClient _commandDataClient;
+        private readonly IMessageBusClient _messageBusClient;
         private readonly IPlatformRepository _repository;
         private readonly IMapper _mapper;
 
-        public PlatformsController(IPlatformRepository repository, IMapper mapper, ICommandDataClient commandDataClient)
+        public PlatformsController(IPlatformRepository repository, 
+            IMapper mapper, 
+            ICommandDataClient commandDataClient, 
+            IMessageBusClient messageBusClient)
         {
             _commandDataClient = commandDataClient;
+            _messageBusClient = messageBusClient;
             _repository = repository;
             _mapper = mapper;
         }
@@ -61,7 +67,19 @@ namespace Platforms.Api.Controllers
             }
             catch (Exception ex)
             {
-                Console.WriteLine($"Could not send request to commandsService: {ex.Message}");
+                Console.WriteLine($"Could not send sync request to commandsService: {ex.Message}");
+            }
+
+            try
+            {
+                var platformPublishedDto = _mapper.Map<PlatformPublishedDto>(returnDto);
+                platformPublishedDto.Event = "Platform_Published";
+
+                _messageBusClient.PublishNewPlatform(platformPublishedDto);
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine($"Could not send sync request to commandsService: {ex.Message}");
             }
 
             return CreatedAtAction(nameof(GetPlatformById), new { Id = returnDto.Id }, returnDto);

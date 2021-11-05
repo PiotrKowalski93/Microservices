@@ -45,7 +45,7 @@ namespace Platforms.Domain.AsyncDataServices
 
             _channel.BasicPublish(exchange: "trigger", routingKey: "", basicProperties: null, body: body);
 
-            Console.WriteLine($"We have sent {body}");
+            Console.WriteLine($"We have sent {message}");
         }
 
         public void Dispose()
