@@ -7,6 +7,7 @@ using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Microsoft.OpenApi.Models;
 using System;
+using Commands.Api.EventProcessing;
 
 namespace Commands.Api
 {
@@ -22,6 +23,7 @@ namespace Commands.Api
         public void ConfigureServices(IServiceCollection services)
         {
             services.AddScoped<ICommandRepo, CommandRepo>();
+            services.AddSingleton<IEventProcessor,EventProcessor>();
 
             services.AddDbContext<AppDbContext>(opt => opt.UseInMemoryDatabase("InMemDb"));
 

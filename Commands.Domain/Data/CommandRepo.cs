@@ -61,6 +61,11 @@ namespace Commands.Domain.Data
             return _context.Commands.Where(c => c.PlatformId == platformId);
         }
 
+        public bool IsExternalPlatformExists(int externalId)
+        {
+            return _context.Platforms.Any(p => p.ExternalId == externalId);
+        }
+
         public bool IsPlatformExists(int platformId)
         {
             return _context.Platforms.Any(p => p.Id == platformId);
