@@ -24,13 +24,13 @@ namespace Commands.Api
         public void ConfigureServices(IServiceCollection services)
         {
             services.AddDbContext<AppDbContext>(opt => opt.UseInMemoryDatabase("InMemDb"));
-            
+            services.AddScoped<ICommandRepo, CommandRepo>();
+
             services.AddControllers();
 
             // Long running task registration
             services.AddHostedService<MessageBusSubscriber>();
-
-            services.AddScoped<ICommandRepo, CommandRepo>();
+            
 
             services.AddSingleton<IEventProcessor, EventProcessor>();
             services.AddSingleton<IEventProcessor, EventProcessor>();

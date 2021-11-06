@@ -15,10 +15,7 @@ spec:
       containers:
       - name: mssql
         image: mcr.microsoft.com/mssql/server
-        resources:
-          limits:
-            memory: "1024Mi"
-            cpu: "1000m"
+        
         ports:
         - containerPort: 1433
         env:
