@@ -8,6 +8,7 @@ using Microsoft.Extensions.Hosting;
 using Microsoft.OpenApi.Models;
 using System;
 using Commands.Api.EventProcessing;
+using Commands.Api.AsyncDataServices;
 
 namespace Commands.Api
 {
@@ -22,12 +23,18 @@ namespace Commands.Api
 
         public void ConfigureServices(IServiceCollection services)
         {
-            services.AddScoped<ICommandRepo, CommandRepo>();
-            services.AddSingleton<IEventProcessor,EventProcessor>();
-
             services.AddDbContext<AppDbContext>(opt => opt.UseInMemoryDatabase("InMemDb"));
-
+            
             services.AddControllers();
+
+            // Long running task registration
+            services.AddHostedService<MessageBusSubscriber>();
+
+            services.AddScoped<ICommandRepo, CommandRepo>();
+
+            services.AddSingleton<IEventProcessor, EventProcessor>();
+            services.AddSingleton<IEventProcessor, EventProcessor>();
+
             services.AddAutoMapper(AppDomain.CurrentDomain.GetAssemblies());
             services.AddSwaggerGen(c =>
             {

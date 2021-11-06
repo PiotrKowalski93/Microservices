@@ -6,6 +6,7 @@ FROM mcr.microsoft.com/dotnet/sdk:5.0 AS build-env
 WORKDIR /src
 
 COPY "Commands.Api" "Commands.Api"
+COPY "Commands.Domain" "Commands.Domain"
 
 RUN dotnet restore "Commands.Api/Commands.Api.csproj"
 
